@@ -4,7 +4,7 @@ Calculator
 import json
 
 with open('calculator/calculator-messages.json', 'r') as file:
-    text = json.load(file)
+    messageData = json.load(file)
     file.close()
 
 #add arrow prefix
@@ -20,10 +20,37 @@ def invalid_number(number_str):
 
     return False
 
+#test for invalid y/n response depending on language
 def invalid_response(response):
-    return response not in ['y','n']
+    if text == messageData[0]:
+        return response not in ['y','n']
+    if text == messageData[1]:
+        return response not in ['s','n']
+
+text = messageData[0]
 
 prompt(text["welcome"])
+
+prompt(text["language_change"])
+change = input()
+
+while invalid_response(change):
+    prompt(text["language_change"])
+    change = input()
+
+if change == 'y':
+    prompt(text["language_option"])
+    language = input()
+
+    while language not in ['1','2']:
+        prompt(text["language_option"])
+        language = input()
+
+    match language:
+        case '1':
+            text = messageData[0]
+        case '2':
+            text = messageData[1]
 
 while True:
     prompt(text["n1"])
@@ -69,7 +96,7 @@ while True:
         prompt(f'The result is: {round(output,4)}')
     else:
         prompt(output)
-    
+
     prompt(text["another"])
     answer = input()
 
