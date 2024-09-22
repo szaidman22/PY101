@@ -1,6 +1,11 @@
 '''
 Calculator
 '''
+import json
+
+with open('calculator/calculator-messages.json', 'r') as file:
+    text = json.load(file)
+    file.close()
 
 #add arrow prefix
 def prompt(message):
@@ -15,38 +20,33 @@ def invalid_number(number_str):
 
     return False
 
-prompt("Welcome to Calculator!")
+def invalid_response(response):
+    return response not in ['y','n']
+
+prompt(text["welcome"])
 
 while True:
-    prompt("What's the first number?")
+    prompt(text["n1"])
     number1 = input()
 
     while invalid_number(number1):
-        prompt("Please enter a valid number.")
+        prompt(text["valid_number"])
         number1 = input()
 
-    prompt("What's the second number?")
+    prompt(text["n2"])
     number2 = input()
 
     while invalid_number(number2):
-        prompt("Please enter a valid number.")
+        prompt(text["valid_number"])
         number2 = input()
 
-    prompt("What operation would you like to perform? (enter number):\n"
-        "1) Add\n"
-        "2) Subtract\n"
-        "3) Multiply\n"
-        "4) Divide")
+    prompt(text["operation1"])
     operation = input()
 
     #test for in
     # valid operation number
     while operation not in ['1','2','3','4']:
-        prompt("Oops, please enter a valid operation number:\n"
-            "1) Add\n"
-            "2) Subtract\n"
-            "3) Multiply\n"
-            "4) Divide")
+        prompt(text["operation2"])
         operation = input()
 
     number1 = float(number1)
@@ -61,19 +61,22 @@ while True:
             output = number1 * number2
         case '4':
             if number2 == 0:
-                output = "Dividing by 0 is not allowed!"
+                output = text["zero"]
             else:
                 output = number1 / number2
-        case _:
-            output = "Something went awry!"
 
     if isinstance(output,float):
         prompt(f'The result is: {round(output,4)}')
     else:
         prompt(output)
     
-    prompt('Would you like to make another calculation? (y/n)')
+    prompt(text["another"])
     answer = input()
+
+    while invalid_response(answer):
+        prompt(text["valid_another"])
+        answer = input()
+
     if answer == 'n':
-        prompt('Thank you for using Calculator, have a wonderful day :)')
+        prompt(text["thanks"])
         break
