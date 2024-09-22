@@ -4,7 +4,7 @@ Calculator
 import json
 
 with open('calculator/calculator-messages.json', 'r') as file:
-    messageData = json.load(file)
+    messageLanguage = json.load(file)
     file.close()
 
 #add arrow prefix
@@ -22,12 +22,12 @@ def invalid_number(number_str):
 
 #test for invalid y/n response depending on language
 def invalid_response(response):
-    if text == messageData[0]:
+    if text == messageLanguage[0]:
         return response not in ['y','n']
-    if text == messageData[1]:
+    if text == messageLanguage[1]:
         return response not in ['s','n']
 
-text = messageData[0]
+text = messageLanguage[0]
 
 prompt(text["welcome"])
 
@@ -48,9 +48,9 @@ if change == 'y':
 
     match language:
         case '1':
-            text = messageData[0]
+            text = messageLanguage[0]
         case '2':
-            text = messageData[1]
+            text = messageLanguage[1]
 
 while True:
     prompt(text["n1"])
@@ -67,13 +67,11 @@ while True:
         prompt(text["valid_number"])
         number2 = input()
 
-    prompt(text["operation1"])
+    prompt(text["operation"])
     operation = input()
 
-    #test for in
-    # valid operation number
     while operation not in ['1','2','3','4']:
-        prompt(text["operation2"])
+        prompt(text["operation_invalid"])
         operation = input()
 
     number1 = float(number1)
