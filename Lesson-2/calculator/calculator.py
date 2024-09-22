@@ -4,7 +4,7 @@ Calculator
 import json
 
 with open('calculator/calculator-messages.json', 'r') as file:
-    messageLanguage = json.load(file)
+    message_language = json.load(file)
     file.close()
 
 #add arrow prefix
@@ -21,36 +21,39 @@ def invalid_number(number_str):
     return False
 
 #test for invalid y/n response depending on language
-def invalid_response(response):
-    if text == messageLanguage[0]:
+def invalid_response(response, language):
+    if language == "English":
         return response not in ['y','n']
-    if text == messageLanguage[1]:
+    if language == "Spanish":
         return response not in ['s','n']
 
-text = messageLanguage[0]
+text = message_language[0]
+current_language = "English"
 
 prompt(text["welcome"])
 
 prompt(text["language_change"])
 change = input()
 
-while invalid_response(change):
+while invalid_response(change, current_language):
     prompt(text["language_change"])
     change = input()
 
 if change == 'y':
     prompt(text["language_option"])
-    language = input()
+    language_number = input()
 
-    while language not in ['1','2']:
+    while language_number not in ['1','2']:
         prompt(text["language_option"])
-        language = input()
+        language_number = input()
 
-    match language:
+    match language_number:
         case '1':
-            text = messageLanguage[0]
+            text = message_language[0]
+            current_language = "English"
         case '2':
-            text = messageLanguage[1]
+            text = message_language[1]
+            current_language = "Spanish"
 
 while True:
     prompt(text["n1"])
@@ -98,7 +101,7 @@ while True:
     prompt(text["another"])
     answer = input()
 
-    while invalid_response(answer):
+    while invalid_response(answer, current_language):
         prompt(text["valid_another"])
         answer = input()
 
