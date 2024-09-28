@@ -32,6 +32,7 @@ def invalid_month(number_str):
 def invalid_yn(response):
     return response not in ['y','n']
 
+#get valid yes or no response from user
 def get_valid_yn(response):
     while invalid_yn(response):
         prompt("Please enter only 'y' or 'n'.")
