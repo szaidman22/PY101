@@ -37,3 +37,11 @@ def three_count(string, character):
 three_count(test_string, 'x')
 
 
+my_var = [1]
+
+def my_func(my_var):
+    my_var = [2]
+    print(my_var)
+
+my_func(my_var)
+print(my_var) 
