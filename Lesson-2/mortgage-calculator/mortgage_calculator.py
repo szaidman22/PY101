@@ -2,13 +2,19 @@
 
 import os
 
+DISALLOWED_INPUTS = ['nan', 'inf']
+
+# Check for special cases (nan, inf) entered as input
+def disallowed_input(number_str):
+    return number_str in DISALLOWED_INPUTS
+
 # Add arrow prefix
 def prompt(message):
     print(f'==> {message}')
 
 #Remove comma from loan amount
-def remove_comma(number_string):
-    return "".join(number_string.split(","))
+def remove_comma(number_str):
+    return "".join(number_str.split(","))
 
 #test for invalid loan amount input
 def invalid_amount(number_str):
@@ -16,7 +22,7 @@ def invalid_amount(number_str):
         float(number_str)
     except ValueError:
         return True
-
+    
     return False
 
 #test for invalid month input
@@ -46,11 +52,11 @@ def invalid_change_option(response):
 #get loan amount
 def get_loan_amount():
     prompt("Please Enter Loan Amount:")
-    loan_amount = remove_comma(input("$"))
+    loan_amount = input("$")
 
-    while invalid_amount(loan_amount) or float(loan_amount) <= 0:
+    while invalid_amount(loan_amount) or float(loan_amount) <= 0 or disallowed_input(loan_amount):
         prompt("please enter valid number")
-        loan_amount = remove_comma(input("$"))
+        loan_amount = input("$")
 
     loan_amount = float(loan_amount)
     return loan_amount
@@ -60,7 +66,7 @@ def get_apr():
     prompt("Please Enter APR (%):")
     apr_input = input().strip('%')
 
-    while invalid_amount(apr_input):
+    while invalid_amount(apr_input) or disallowed_input(apr_input):
         prompt("Please enter a valid percentage")
         apr_input = input().strip('%')
 
@@ -169,9 +175,9 @@ def calculator():
 
     while True:
         prompt(f"Let's begin your {number_suffix(calculations)} calculation:")
-        user_loan_amount, user_apr, user_duration_months = user_validated_input()
-        user_monthly_payment = get_monthly_payment(user_loan_amount, user_apr, user_duration_months)
-        payment_ouptut(user_monthly_payment)
+        loan_amount, apr, duration_months = user_validated_input()
+        monthly_payment = get_monthly_payment(loan_amount, apr, duration_months)
+        payment_ouptut(monthly_payment)
 
         prompt("Would you like to calculate another payment? (y/n)")
         another_calculation = get_valid_yn(input().casefold())
