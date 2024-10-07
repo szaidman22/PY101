@@ -19,7 +19,7 @@ def prompt(message):
     print(f"===> {message}")
 
 def get_player_name():
-    prompt(f"Welcome to {', '.join(CHOICE_LOOKUP.keys())}!")
+    prompt(f"Welcome to {', '.join([key for key in CHOICE_LOOKUP.keys()])}!")
     return input("===> Please enter your name: ")
 
 def get_opponent_name_face():
