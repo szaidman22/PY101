@@ -67,3 +67,7 @@ e.g. +=, can be used to assign a new variable, reassign a variable or mutate an 
 ### interning
 
 - when python reuses a memory address for certain immutable objects like integers and short strings with the same value.
+
+### review solution to hard problems question 2
+
+- slicing will result in the creation of a copy rather than a reference to the same object
