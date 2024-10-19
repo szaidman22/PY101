@@ -71,3 +71,21 @@ e.g. +=, can be used to assign a new variable, reassign a variable or mutate an 
 ### review solution to hard problems question 2
 
 - slicing will result in the creation of a copy rather than a reference to the same object
+
+### when asked what a function does
+
+- always mention its output, what it returns, local and non-local variables that it uses.
+
+### describing the implementation of code / a function
+
+- it's not always necessary to describe the implementation i.e. how the code/function works so much as what it does (the user-level description). Pay attention to whether in written assessments launch school asks for the implementation description vs. user-level description. 
+
+### Variables
+
+all of the following are considered variables:
+
+- Variables and constants
+- Function names
+- Function parameters
+
+"Note in particular that dictionary key names are not variables, nor are the elements of a collection."
